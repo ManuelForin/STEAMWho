@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indovina il personaggio famoso STEAM</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        background: #0e8dbc;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+	
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+	
+	.container2 {
+		text-align: center;
+        color: black;
+        font-size: 18px;
+        line-height: 1.5;
+		max-width: 800px;
+        margin: 10px auto;
+        background-color: #FFFFFF;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	}
+	
+	h2 {
+		color: #FFFFFF;
+		border-radius: 8px;
+		background-color:#0056b3;
+		text-align: center;
+		margin-top: 10px;
+		padding: 15px;
+	}
+	
+    .question {
+        margin-bottom: 20px;
+		text-align: center;
+		color: #0056b3;
+        padding: 10px;
+		background-color: black;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #FFFFFF;
+        color: #0056b3;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: black;
+    }
+	
+	details {
+		text-align: left;
+		border-radius: 4px;
+		color: #0056b3;
+		max-width: 350px;
+		border-style: solid;
+	}
+	
+	#titolo {
+		color: #FFFFFF;
+		text-shadow: 0 1px 0 #CCCCCC, 
+		0 2px 0 #c9c9c9, 0 3px 0 #bbb,
+		0 4px 0 #b9b9b9, 0 5px 0 #aaa, 
+		0 6px 1px rgba(0,0,0,.1),
+		0 0 5px rgba(0,0,0,.1),
+		0 1px 3px rgba(0,0,0,.3),
+		0 3px 5px rgba(0,0,0,.2),
+		0 5px 10px rgba(0,0,0,.25),
+		0 10px 10px rgba(0,0,0,.2),
+		0 20px 20px rgba(0,0,0,.15);
+	}
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="titolo">STEAM Who?</h1>
+        <div id="questions" class="question">
+            <!-- Qui verranno inserite dinamicamente le domande -->
+        </div>
+        <button onclick="rispostaPositiva()">Sì</button>
+        <button onclick="rispostaNegativa()">No</button>
+    </div>
+	<div class="container2">
+		<h2><em>STEAM Who</em>, l'indovino del progresso umano</h2>
+		<p style="padding: 10px; padding-top: 0.1px;">STEAM Who? è un gioco che mette alla prova le tue conoscenze sui personaggi famosi nel campo della Scienza,
+		Tecnologia, Ingegneria, Arte e Matematica (STEAM). Il tuo obiettivo è indovinare il personaggio nascosto rispondendo 
+		a una serie di domande. Ogni risposta ti avvicinerà sempre di più alla soluzione!</p>
+		<details>
+				<summary>I personaggi indovinabili sono i seguenti:</summary>
+				<ul style="color: black;">
+					<strong>
+						<li>Leonardo da Vinci</li>
+						<li>Marie Curie</li>
+						<li>Alan Turing</li>
+						<li>Ada Lovelace</li>
+						<li>Albert Einstein</li>
+						<li>Jane Goodall</li>
+						<li>Nikola Tesla</li>
+						<li>Georgia O'Keeffe</li>
+						<li>Katherine Johnson</li>
+						<li>Elon Musk</li>
+						<li>Grace Hopper</li>
+						<li>Charles Darwin</li>
+						<li>Hedy Lamarr</li>
+						<li>Pyotr Ilyich Tchaikovsky</li>
+						<li>Margaret Hamilton</li>
+						<li>George Washington Carver</li>
+						<li>Jackson Pollock</li>
+						<li>Stephen Hawking</li>
+						<li>Steve Jobs</li>
+						<li>Mary Jackson</li>
+					</strong>
+				</ul>
+			</details>
+	</div>
+    
+    <script>
+        // Definizione dei personaggi
+        const personaggi = {
+            "Leonardo da Vinci": 0,
+            "Marie Curie": 0,
+            "Alan Turing": 0,
+            "Ada Lovelace": 0,
+            "Albert Einstein": 0,
+            "Jane Goodall": 0,
+            "Nikola Tesla": 0,
+            "Georgia O'Keeffe": 0,
+            "Katherine Johnson": 0,
+            "Elon Musk": 0,
+            "Grace Hopper": 0,
+            "Charles Darwin": 0,
+            "Hedy Lamarr": 0,
+            "Pyotr Ilyich Tchaikovsky": 0,
+            "Margaret Hamilton": 0,
+            "George Washington Carver": 0,
+            "Jackson Pollock": 0,
+            "Stephen Hawking": 0,
+            "Steve Jobs": 0,
+            "Mary Jackson": 0
+        };
+
+        // Array di domande con le relative associazioni ai personaggi
+        const domande = [
+            { testo: "Il personaggio è noto per il suo lavoro in ingegneria o anatomia?", personaggiCoinvolti: ["Leonardo da Vinci"] },
+            { testo: "Il personaggio ha vinto il premio Nobel in fisica o chimica?", personaggiCoinvolti: ["Marie Curie", "Albert Einstein"] },
+            { testo: "Il personaggio è noto per la sua programmazione o logica matematica?", personaggiCoinvolti: ["Alan Turing", "Ada Lovelace"] },
+            { testo: "Il personaggio è considerato un pioniere nella programmazione?", personaggiCoinvolti: ["Grace Hopper"] },
+            { testo: "Il personaggio è famoso per la sua teoria della relatività o altre scoperte scientifiche?", personaggiCoinvolti: ["Albert Einstein"] },
+            { testo: "Il personaggio è noto per il suo lavoro in primatologia o etologia?", personaggiCoinvolti: ["Jane Goodall"] },
+            { testo: "Il personaggio è famoso per le sue scoperte nell'ingegneria elettrica?", personaggiCoinvolti: ["Nikola Tesla"] },
+            { testo: "Il personaggio è noto per la sua pittura o arte moderna?", personaggiCoinvolti: ["Georgia O'Keeffe", "Jackson Pollock"] },
+            { testo: "Il personaggio è famoso per il suo lavoro matematico alla NASA?", personaggiCoinvolti: ["Katherine Johnson"] },
+            { testo: "Il personaggio è un imprenditore noto per innovazioni nello spazio o nei veicoli elettrici?", personaggiCoinvolti: ["Elon Musk"] },
+            { testo: "Il personaggio è considerato un pioniere dell'informatica?", personaggiCoinvolti: ["Alan Turing"] },
+            { testo: "Il personaggio è famoso per le sue scoperte in biologia evoluzionistica?", personaggiCoinvolti: ["Charles Darwin"] },
+            { testo: "Il personaggio è noto come attrice e inventrice?", personaggiCoinvolti: ["Hedy Lamarr"] },
+            { testo: "Il personaggio è famoso per le sue composizioni musicali?", personaggiCoinvolti: ["Pyotr Ilyich Tchaikovsky"] },
+            { testo: "Il personaggio è noto per il suo lavoro nel programma Apollo della NASA?", personaggiCoinvolti: ["Margaret Hamilton", "Katherine Johnson"] },
+            { testo: "Il personaggio è famoso per le sue scoperte in agricoltura o biologia?", personaggiCoinvolti: ["George Washington Carver", "Jane Goodall"] },
+            { testo: "Il personaggio è noto per la sua pittura nello stile dell'espressionismo astratto?", personaggiCoinvolti: ["Jackson Pollock"] },
+            { testo: "Il personaggio è famoso per le sue scoperte in fisica teorica o cosmologia?", personaggiCoinvolti: ["Albert Einstein", "Stephen Hawking"] },
+            { testo: "Il personaggio è noto per l'innovazione nel design di prodotti tecnologici?", personaggiCoinvolti: ["Steve Jobs", "Elon Musk"] },
+            { testo: "Il personaggio è noto per il suo lavoro come ingegnere aerospaziale alla NASA?", personaggiCoinvolti: ["Margaret Hamilton", "Katherine Johnson"] },
+            { testo: "Il personaggio è noto per le sue scoperte nel campo della psicologia o della neuroscienza?", personaggiCoinvolti: ["Sigmund Freud", "Oliver Sacks"] },
+            { testo: "Il personaggio è famoso per il suo lavoro nella ricerca sui buchi neri o sulla relatività generale?", personaggiCoinvolti: ["Stephen Hawking", "Albert Einstein"] },
+            { testo: "Il personaggio è rinomato per il suo contributo alla teoria dei giochi o alla matematica applicata?", personaggiCoinvolti: ["John von Neumann", "John Nash"] },
+            { testo: "Il personaggio è noto per il suo lavoro nella genomica o nella biologia molecolare?", personaggiCoinvolti: ["James Watson", "Francis Crick"] },
+            { testo: "Il personaggio è famoso per le sue scoperte nel campo della geologia o della geofisica?", personaggiCoinvolti: ["Charles Lyell", "Alfred Wegener"] },
+            { testo: "Il personaggio è conosciuto per il suo contributo all'arte astratta o alla pittura cubista?", personaggiCoinvolti: ["Pablo Picasso", "Wassily Kandinsky"] },
+            { testo: "Il personaggio è noto per il suo lavoro nella teoria della gravitazione o nell'astrofisica?", personaggiCoinvolti: ["Isaac Newton", "Edwin Hubble"] },
+            { testo: "Il personaggio è famoso per le sue scoperte nel campo della linguistica o della filosofia del linguaggio?", personaggiCoinvolti: ["Noam Chomsky", "Ludwig Wittgenstein"] },
+            { testo: "Il personaggio è rinomato per il suo contributo alla teoria delle stringhe o alla fisica teorica?", personaggiCoinvolti: ["Edward Witten", "Brian Greene"] },
+            { testo: "Il personaggio è noto per il suo lavoro nell'astronomia osservativa o nella cosmologia?", personaggiCoinvolti: ["Carl Sagan", "Edwin Hubble"] },
+            { testo: "Il personaggio è famoso per le sue scoperte nel campo della chimica organica o della chimica fisica?", personaggiCoinvolti: ["Linus Pauling", "Irène Joliot-Curie"] },
+            { testo: "Il personaggio è conosciuto per il suo contributo alla teoria dell'informazione o alla crittografia?", personaggiCoinvolti: ["Claude Shannon", "Alan Turing"] },
+            { testo: "Il personaggio è noto per le sue scoperte nell'ornitologia o nella biologia marina?", personaggiCoinvolti: ["John James Audubon", "Rachel Carson"] },
+            { testo: "Il personaggio è famoso per il suo lavoro nella teoria del caos o nella dinamica dei fluidi?", personaggiCoinvolti: ["Edward Lorenz", "Benoit Mandelbrot"] },
+            { testo: "Il personaggio è rinomato per il suo contributo alla teoria dell'evoluzione delle specie o alla biologia molecolare?", personaggiCoinvolti: ["Theodosius Dobzhansky", "James Watson"] },
+            { testo: "Il personaggio è noto per il suo lavoro nell'elettrodinamica quantistica o nella fisica delle particelle?", personaggiCoinvolti: ["Richard Feynman", "Murray Gell-Mann"] },
+            { testo: "Il personaggio è conosciuto per il suo contributo alla teoria delle onde gravitazionali o alla relatività generale?", personaggiCoinvolti: ["Kip Thorne", "Albert Einstein"] },
+            { testo: "Il personaggio è famoso per le sue scoperte nel campo dell'entomologia o dell'ecologia?", personaggiCoinvolti: ["Edward O. Wilson", "Rachel Carson"] },
+            { testo: "Il personaggio è rinomato per il suo contributo alla teoria del big bang o alla cosmologia?", personaggiCoinvolti: ["George Gamow", "Stephen Hawking"] },
+            { testo: "Il personaggio è noto per le sue scoperte nella biochimica o nella biologia cellulare?", personaggiCoinvolti: ["Fritz Lipmann", "Christian de Duve"] },
+            { testo: "Il personaggio è famoso per il suo lavoro nella teoria dell'evoluzione culturale o nell'antropologia?", personaggiCoinvolti: ["Richard Dawkins", "Franz Boas"] }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        // Funzione per mostrare la domanda corrente
+        function showCurrentQuestion() {
+            const questionContainer = document.getElementById("questions");
+            questionContainer.innerHTML = `<p>${domande[currentQuestionIndex].testo}</p>`;
+        }
+
+        // Funzione per gestire le risposte positive
+        function rispostaPositiva() {
+            const personaggiCoinvolti = domande[currentQuestionIndex].personaggiCoinvolti;
+            for (let i = 0; i < personaggiCoinvolti.length; i++) {
+                personaggi[personaggiCoinvolti[i]]++;
+            }
+            currentQuestionIndex++;
+            if (currentQuestionIndex < domande.length) {
+                showCurrentQuestion();
+            } else {
+                mostraRisultato();
+            }
+        }
+
+        // Funzione per gestire le risposte negative
+        function rispostaNegativa() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < domande.length) {
+                showCurrentQuestion();
+            } else {
+                mostraRisultato();
+            }
+        }
+
+        // Funzione per mostrare il personaggio più vicino
+        function mostraRisultato() {
+            let personaggioCercato;
+            let maxContatore = -1;
+            for (const personaggio in personaggi) {
+                if (personaggi[personaggio] > maxContatore) {
+                    maxContatore = personaggi[personaggio];
+                    personaggioCercato = personaggio;
+                }
+            }
+			if(maxContatore != 0)
+				alert("Il personaggio più vicino è: " + personaggioCercato);
+			else
+				alert("Il personaggio che stai cercando non rientra nell'ambito STEAM");
+			location.reload();
+        }
+
+        // Inizia il gioco mostrando la prima domanda
+        showCurrentQuestion();
+    </script>
+</body>
+</html>
